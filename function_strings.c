@@ -116,7 +116,7 @@ int main()
     massiv_fprint (struct_array, num_of_str, new_file);
 
     printf ("\nmy qsort ended\n\n");
-    printf ("counter: [%d]\n", COUNTER);
+    //printf ("counter: [%d]\n", COUNTER);
 
     fclose (new_file);
     FREE (buffer -> buff);
@@ -687,7 +687,7 @@ void buble_sort (void* __base, size_t __nel, size_t __width, int (*cmp)(const vo
 
 void inside_Hoare_sort (void* base, void* extra_buf, size_t nel, size_t width, int (*cmp)(const void*, const void*))
 {
-    COUNTER ++;
+    //COUNTER ++;
     if (nel <= 1) return;
 
     if (nel == 2) 

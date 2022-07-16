@@ -105,14 +105,14 @@ int main()
 
     double start = clock ();
 
-    qsort (struct_array, num_of_str, sizeof(struct_array[0]), &str_cmp_begin);
+    custm_qsort (struct_array, num_of_str, sizeof(struct_array[0]), &str_cmp_begin);
 
     double end = clock ();
 
     printf ("it took [%lf\n]", (end - start)/(CLOCKS_PER_SEC));
     massiv_fprint (struct_array, num_of_str, new_file);
     
-    qsort (struct_array, num_of_str, sizeof(struct_array[0]), &str_cmp_end);
+    custm_qsort (struct_array, num_of_str, sizeof(struct_array[0]), &str_cmp_end);
     massiv_fprint (struct_array, num_of_str, new_file);
 
     printf ("\nmy qsort ended\n\n");
@@ -701,14 +701,15 @@ void inside_Hoare_sort (void* base, void* extra_buf, size_t nel, size_t width, i
 
     if (nel == 3)
     {
-        if (cmp (base, base + width) > 0)
-        {
-            mem_swope (base, base + width, width);
-        }
-        if (cmp (base + width, base + 2 * width) > 0)
-        {
-            mem_swope (base + width, base + 2 * width, width);
-        }
+        void* max_elem = NULL;
+
+        if (cmp (base, base + width) > 0) max_elem = base;
+
+        else max_elem = base + width;
+
+        if (cmp (max_elem, base + 2 * width) > 0) mem_swope (max_elem, base + 2 * width, width);
+
+        if (cmp (base, base + width) > 0) mem_swope (base, base + width, width);
 
         return;
     }
@@ -784,7 +785,7 @@ void custm_qsort (void* __base, size_t __nel, size_t __width, int (*cmp)(const v
     void* extra_buf = CALLOC (__width, void);
     assert (extra_buf != NULL);
 
-    //inside_Hoare_sort  (__base, extra_buf, __nel, __width, cmp);
+    inside_Hoare_sort  (__base, extra_buf, __nel, __width, cmp);
    //inside_Lomuto_sort (__base, __nel, __width, cmp);
     
     FREE (extra_buf);

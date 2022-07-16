@@ -105,14 +105,14 @@ int main()
 
     double start = clock ();
 
-    custm_qsort (struct_array, num_of_str, sizeof(struct_array[0]), &str_cmp_begin);
+    qsort (struct_array, num_of_str, sizeof(struct_array[0]), &str_cmp_begin);
 
     double end = clock ();
 
     printf ("it took [%lf\n]", (end - start)/(CLOCKS_PER_SEC));
     massiv_fprint (struct_array, num_of_str, new_file);
     
-    custm_qsort (struct_array, num_of_str, sizeof(struct_array[0]), &str_cmp_end);
+    qsort (struct_array, num_of_str, sizeof(struct_array[0]), &str_cmp_end);
     massiv_fprint (struct_array, num_of_str, new_file);
 
     printf ("\nmy qsort ended\n\n");
@@ -784,8 +784,8 @@ void custm_qsort (void* __base, size_t __nel, size_t __width, int (*cmp)(const v
     void* extra_buf = CALLOC (__width, void);
     assert (extra_buf != NULL);
 
-    inside_Hoare_sort  (__base, extra_buf, __nel, __width, cmp);
-    //inside_Lomuto_sort (__base, __nel, __width, cmp);
+    //inside_Hoare_sort  (__base, extra_buf, __nel, __width, cmp);
+   //inside_Lomuto_sort (__base, __nel, __width, cmp);
     
     FREE (extra_buf);
 }
